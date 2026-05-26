@@ -1,0 +1,66 @@
+{% extends 'restaurant/base.html' %}
+
+{% block title %}El Rincon Limeno - Order{% endblock %}
+
+{% block content %}
+<h2>Place an Order</h2>
+
+<form action="{% url 'confirmation' %}" method="POST">
+    {% csrf_token %}
+
+    <fieldset>
+        <legend>Select your items</legend>
+
+        <label class="item">
+            <input type="checkbox" name="lomo">
+            Lomo Saltado &mdash; $14.00
+        </label>
+        <div class="extras">
+            <label><input type="checkbox" name="extra_fries"> Add extra fries (+$2.50)</label>
+            <label><input type="checkbox" name="fried_egg"> Add a fried egg (+$1.50)</label>
+        </div>
+
+        <label class="item">
+            <input type="checkbox" name="ceviche">
+            Ceviche Clasico &mdash; $16.00
+        </label>
+
+        <label class="item">
+            <input type="checkbox" name="pollo">
+            Pollo a la Brasa &mdash; $12.00
+        </label>
+
+        <label class="item">
+            <input type="checkbox" name="causa">
+            Causa Limena &mdash; $9.00
+        </label>
+    </fieldset>
+
+    <fieldset>
+        <legend>Today's Special</legend>
+        <label class="item">
+            <input type="checkbox" name="special">
+            {{ special.name }} &mdash; ${{ special.price|floatformat:2 }}
+        </label>
+        <p class="special-desc">{{ special.description }}</p>
+        <input type="hidden" name="special_name" value="{{ special.name }}">
+        <input type="hidden" name="special_price" value="{{ special.price }}">
+    </fieldset>
+
+    <fieldset>
+        <legend>Special Instructions</legend>
+        <label for="instructions">Anything we should know?</label>
+        <textarea id="instructions" name="instructions" rows="3"
+                  placeholder="e.g. no onions, extra aji on the side"></textarea>
+    </fieldset>
+
+    <fieldset>
+        <legend>Customer Information</legend>
+        <label>Name: <input type="text" name="name" required></label>
+        <label>Phone: <input type="tel" name="phone" required></label>
+        <label>Email: <input type="email" name="email" required></label>
+    </fieldset>
+
+    <button type="submit">Place your order</button>
+</form>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'restaurant/base.html' %}
+
+{% block title %}El Rincon Limeno - Confirmation{% endblock %}
+
+{% block content %}
+<h2>Order Confirmed!</h2>
+
+<p>Thank you{% if name %}, {{ name }}{% endif %} &mdash; your order has been received.</p>
+
+<h3>Your Order</h3>
+<table class="receipt">
+    <tr><th>Item</th><th>Price</th></tr>
+    {% for item in ordered_items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>${{ item.price|floatformat:2 }}</td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="2">No items were selected.</td></tr>
+    {% endfor %}
+    <tr class="total">
+        <td>Total</td>
+        <td>${{ total|floatformat:2 }}</td>
+    </tr>
+</table>
+
+{% if instructions %}
+<h3>Special Instructions</h3>
+<p>{{ instructions }}</p>
+{% endif %}
+
+<h3>Customer Information</h3>
+<ul class="customer">
+    <li><strong>Name:</strong> {{ name }}</li>
+    <li><strong>Phone:</strong> {{ phone }}</li>
+    <li><strong>Email:</strong> {{ email }}</li>
+</ul>
+
+<p class="ready">
+    Your order will be ready at approximately <strong>{{ readytime }}</strong>.
+</p>
+
+<p><a class="button" href="{% url 'main' %}">Back to home</a></p>
+{% endblock %}

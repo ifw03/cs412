@@ -1,0 +1,36 @@
+{% extends 'restaurant/base.html' %}
+{% load static %}
+
+{% block title %}El Rincon de Ignacio - Home{% endblock %}
+
+{% block content %}
+<h2>Welcome!</h2>
+
+<p>
+    Welcome to <strong>El Rincon de Ignacio</strong>, your neighborhood spot for
+    home-style Peruvian cooking &mdash; ceviche, lomo saltado, pollo a la brasa,
+    and a different daily special every day.
+</p>
+
+<div class="photos">
+    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cathedral_of_Lima_-_Peru.JPG?width=600"
+         alt="Cathedral of Lima at the Plaza de Armas">
+    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/La_Costa_Verde_Lima_Peru.JPG?width=600"
+         alt="The Costa Verde coastline in Miraflores, Lima">
+</div>
+
+<h3>Location</h3>
+<p>580 Washington Street, Boston &middot; Boston, MA</p>
+
+<h3>Hours of Operation</h3>
+<table class="hours">
+    <tr><th>Day</th><th>Hours</th></tr>
+    <tr><td>Monday</td><td>Closed</td></tr>
+    <tr><td>Tuesday &ndash; Thursday</td><td>11:00 AM &ndash; 9:00 PM</td></tr>
+    <tr><td>Friday</td><td>11:00 AM &ndash; 11:00 PM</td></tr>
+    <tr><td>Saturday</td><td>10:00 AM &ndash; 11:00 PM</td></tr>
+    <tr><td>Sunday</td><td>10:00 AM &ndash; 8:00 PM</td></tr>
+</table>
+
+<p><a class="button" href="{% url 'order' %}">Place an order &rarr;</a></p>
+{% endblock %}

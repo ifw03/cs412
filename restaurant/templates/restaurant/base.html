@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}El Rincon Limeno{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'restaurant/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>El Rincon de Ignacio</h1>
+        <p class="tagline">Authentic Peruvian kitchen</p>
+        <nav>
+            <a href="{% url 'main' %}">Home</a>
+            <a href="{% url 'order' %}">Order</a>
+        </nav>
+    </header>
+
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>El Rincon Limeno &middot; CS 412 &middot; Built with Django</p>
+    </footer>
+</body>
+</html>
