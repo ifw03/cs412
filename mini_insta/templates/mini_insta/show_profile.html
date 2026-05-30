@@ -1,0 +1,25 @@
+{% extends 'mini_insta/base.html' %}
+
+{% block title %}@{{ profile.username }} — mini_insta{% endblock %}
+
+{% block content %}
+<div class="profile-detail">
+    <img src="{{ profile.profile_image_url }}"
+         alt="{{ profile.username }}"
+         class="profile-detail-img">
+
+    <div class="profile-detail-info">
+        <h1>@{{ profile.username }}</h1>
+        <h2>{{ profile.display_name }}</h2>
+
+        <div class="stats">
+            <span><strong>0</strong> posts</span>
+            <span><strong>0</strong> followers</span>
+            <span><strong>0</strong> following</span>
+        </div>
+
+        <p class="bio">{{ profile.bio_text }}</p>
+        <p class="join-date">Joined {{ profile.join_date|date:"F j, Y" }}</p>
+    </div>
+</div>
+{% endblock %}
