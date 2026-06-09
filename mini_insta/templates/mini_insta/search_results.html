@@ -1,0 +1,38 @@
+{% comment %}
+File: search_results.html
+Author: Ignacio Fernandez, ifw@bu.edu
+Description: displays the profiles and posts that match a search query
+{% endcomment %}
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+    <h1>Search results for "{{ query }}"</h1>
+
+    <!-- listing of matching Profiles -->
+    <h2>Profiles</h2>
+    <ul>
+        {% for result in profiles %}
+            <li>
+                <a href="{% url 'show_profile' result.pk %}">
+                    @{{ result.username }} ({{ result.display_name }})
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- listing of matching Posts -->
+    <h2>Posts</h2>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <a href="{% url 'show_post' post.pk %}">
+                    {{ post.caption }} — by @{{ post.profile.username }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- search again / back to the search form -->
+    <a href="{% url 'search' %}">New search</a>
+{% endblock %}

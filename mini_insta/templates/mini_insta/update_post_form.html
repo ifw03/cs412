@@ -1,0 +1,23 @@
+{% comment %}
+File: update_post_form.html
+Author: Ignacio Fernandez, ifw@bu.edu
+Description: renders a form to update the caption of an existing post
+{% endcomment %}
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+    <h1>Update Post</h1>
+
+    <!-- form submits a POST back to this same update URL -->
+    <form method="POST">
+        {% csrf_token %}            {# security token required for all POST forms #}
+        {{ form.as_p }}             {# renders the caption field with its label #}
+        <input type="submit" value="Update Post">
+    </form>
+
+    <!-- cancel: GET back to the show_post page to redisplay it -->
+    <form method="GET" action="{% url 'show_post' post.pk %}">
+        <input type="submit" value="Cancel">
+    </form>
+{% endblock %}

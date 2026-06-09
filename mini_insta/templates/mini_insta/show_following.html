@@ -1,0 +1,23 @@
+{% comment %}
+File: show_following.html
+Author: Ignacio Fernandez, ifw@bu.edu
+Description: displays the list of profiles that a given profile is following
+{% endcomment %}
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+    <h1>@{{ profile.username }} is following</h1>
+
+    <ul>
+        {% for following in profile.get_following %}
+            <li>
+                <a href="{% url 'show_profile' following.pk %}">
+                    @{{ following.username }} ({{ following.display_name }})
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'show_profile' profile.pk %}">Back to profile</a>
+{% endblock %}

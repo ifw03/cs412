@@ -1,0 +1,25 @@
+{% comment %}
+File: login.html
+Author: Ignacio Fernandez, ifw@bu.edu
+Description: presents the login form so a user can authenticate
+{% endcomment %}
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+    <h1>Log In</h1>
+
+    <!-- POST the username/password back to this same login URL -->
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <!-- where to send the user after a successful login: the page they were
+             trying to reach, or all profiles if they came straight to login -->
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}">
+        {% else %}
+            <input type="hidden" name="next" value="{% url 'show_all_profiles' %}">
+        {% endif %}
+        <input type="submit" value="Log In">
+    </form>
+{% endblock %}

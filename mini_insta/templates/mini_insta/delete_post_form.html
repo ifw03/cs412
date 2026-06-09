@@ -1,0 +1,33 @@
+{% comment %}
+File: delete_post_form.html
+Author: Ignacio Fernandez, ifw@bu.edu
+Description: confirms deletion of a post, with confirm and cancel options
+{% endcomment %}
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+    <h1>Delete Post</h1>
+
+    <!-- show the Post that is about to be deleted -->
+    <p>Are you sure you want to delete this post by {{ post.profile.username }}?</p>
+    <p>{{ post.caption }}</p>
+    <p>Posted: {{ post.timestamp }}</p>
+
+    <div class="photos">
+        {% for photo in post.get_all_photos %}
+            <img src="{{ photo.image_url }}" alt="post image" width="300">
+        {% endfor %}
+    </div>
+
+    <!-- confirm: POST back to this same delete URL to perform the delete -->
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Confirm Delete">
+    </form>
+
+    <!-- cancel: GET back to the profile page to redisplay it -->
+    <form method="GET" action="{% url 'show_profile' profile.pk %}">
+        <input type="submit" value="Cancel">
+    </form>
+{% endblock %}

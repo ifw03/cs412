@@ -1,3 +1,8 @@
+{% comment %}
+File: base.html
+Author: Ignacio Fernandez, ifw@bu.edu
+Description: base layout with the header, footer, and navigation for mini_insta
+{% endcomment %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +17,16 @@
         <a href="{% url 'show_all_profiles' %}" class="logo">mini_insta</a>
         <nav>
             <a href="{% url 'show_all_profiles' %}">Profiles</a>
+            {% if user.is_authenticated %}
+                <span>Logged in as {{ user.username }}</span>
+                <!-- logout requires a POST in modern Django, so use a small form -->
+                <form action="{% url 'logout' %}" method="POST" style="display:inline">
+                    {% csrf_token %}
+                    <button type="submit">Log out</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Log in</a>
+            {% endif %}
         </nav>
     </header>
 
@@ -20,9 +35,14 @@
     </main>
 
     <footer class="site-footer">
+        {% if user.is_authenticated %}
+        <a href="{% url 'show_feed' %}">Home</a>
+        {% endif %}
         <a href="{% url 'show_all_profiles' %}">← View all profiles</a>
-        {% if profile %}
-        <a href="{% url 'create_post' profile.pk %}">Create Post</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'search' %}">Search</a>
+        <a href="{% url 'show_my_profile' %}">My Profile</a>
+        <a href="{% url 'create_post' %}">Create Post</a>
         {% endif %}
     </footer>
 </body>

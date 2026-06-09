@@ -1,0 +1,47 @@
+{% comment %}
+File: show_feed.html
+Author: Ignacio Fernandez, ifw@bu.edu
+Description: displays the post feed for a profile, showing posts from the profiles they follow newest first
+{% endcomment %}
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+    <h1>Feed for @{{ profile.username }}</h1>
+
+    <div class="feed">
+        {% for post in profile.get_post_feed %}
+            <div class="feed-post">
+                <!-- profile image and name of the person who wrote the post -->
+                <a href="{% url 'show_profile' post.profile.pk %}">
+                    <img src="{{ post.profile.profile_image_url }}"
+                         alt="{{ post.profile.username }}" width="50">
+                    <strong>@{{ post.profile.username }}</strong>
+                    ({{ post.profile.display_name }})
+                </a>
+
+                <!-- first Photo of the Post -->
+                {% with photo=post.get_all_photos.first %}
+                    {% if photo %}
+                        <a href="{% url 'show_post' post.pk %}">
+                            <img src="{{ photo.image_url }}" alt="post image" width="300">
+                        </a>
+                    {% endif %}
+                {% endwith %}
+
+                <!-- Likes, caption, and Comments -->
+                <p>{{ post.get_likes.count }} likes</p>
+                <p>{{ post.caption }}</p>
+
+                <div class="comments">
+                    {% for comment in post.get_all_comments %}
+                        <p><strong>{{ comment.profile.username }}</strong>: {{ comment.text }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- link back to the profile page -->
+    <a href="{% url 'show_profile' profile.pk %}">Back to profile</a>
+{% endblock %}

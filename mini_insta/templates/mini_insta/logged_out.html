@@ -1,0 +1,14 @@
+{% comment %}
+File: logged_out.html
+Author: Ignacio Fernandez, ifw@bu.edu
+Description: confirmation page shown after a user logs out
+{% endcomment %}
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+    <h1>You have been logged out</h1>
+
+    <!-- link back to the mini_insta login page -->
+    <a href="{% url 'login' %}">Log in again</a>
+{% endblock %}

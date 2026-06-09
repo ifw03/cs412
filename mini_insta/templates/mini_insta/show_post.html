@@ -1,6 +1,12 @@
+{% comment %}
+File: show_post.html
+Author: Ignacio Fernandez, ifw@bu.edu
+Description: displays a single post with its photos, likes, and comments
+{% endcomment %}
 {% extends 'mini_insta/base.html' %}
 {% block content %}
 <h1>Post by {{ post.profile.username }}</h1>
+<p>{{ post.get_likes.count }} likes</p>  {# like count above the caption #}
 <p>{{ post.caption }}</p>
 <p>Posted: {{ post.timestamp }}</p>
 
@@ -10,5 +16,16 @@
     {% endfor %}
 </div>
 
+<div class="comments">
+    <h2>Comments</h2>
+    {% for comment in post.get_all_comments %}
+        <p><strong>{{ comment.profile.username }}</strong>: {{ comment.text }}</p>
+    {% endfor %}
+</div>
+
 <a href="{% url 'show_profile' post.profile.pk %}">Back to profile</a>
+{% if user.is_authenticated and post.profile.user_id == user.id %}  {# only the owner sees update/delete #}
+<a href="{% url 'update_post' post.pk %}">update</a>
+<a href="{% url 'delete_post' post.pk %}">delete</a>
+{% endif %}
 {% endblock %}

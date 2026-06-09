@@ -1,8 +1,13 @@
+{% comment %}
+File: create_post_form.html
+Author: Ignacio Fernandez, ifw@bu.edu
+Description: renders the form used to create a new post
+{% endcomment %}
 {% extends 'mini_insta/base.html' %}
 {% block content %}
 <h1>Create a New Post</h1>
 
-<form action="{% url 'create_post' profile.pk %}" method="POST">
+<form action="{% url 'create_post' %}" method="POST">
     {% csrf_token %}
     <p>
         <label for="caption">Caption:</label><br>

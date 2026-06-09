@@ -1,0 +1,18 @@
+{% comment %}
+File: search.html
+Author: Ignacio Fernandez, ifw@bu.edu
+Description: presents a form to search profiles and posts by a text query
+{% endcomment %}
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+    <h1>Search</h1>
+
+    <!-- plain HTML form (not a model form); GET sends the query back to this search URL -->
+    <form method="GET" action="{% url 'search' %}">
+        <textarea name="query" rows="2" cols="40"></textarea>
+        <br>
+        <input type="submit" value="Search">
+    </form>
+{% endblock %}
